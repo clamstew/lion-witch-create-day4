@@ -116,6 +116,16 @@ describe WardrobeItemsController do
       expect(assigns('wardrobe_item')).to eq(wardrobe_item)
     end
   end
+
+  describe "DELETE destroy" do
+    it "destroys the requested wardrobe_item" do
+      expect {
+        delete :destroy, {:id => wardrobe_item}
+      }.to change(WardrobeItem, :count).by(-1)
+    end
+
+    it "redirects to the wardrobe_item list"
+  end
 end
 
 
