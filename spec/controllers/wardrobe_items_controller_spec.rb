@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe WardrobeItemsController do
   let(:valid_attributes) { { "garment" => "boots"} }
+  let(:wardrobe_item) {WardrobeItem.create valid_attributes }
 
   describe 'GET index' do
     it "assigns all wardrobe items as @wardrobe_items" do
@@ -119,12 +120,19 @@ describe WardrobeItemsController do
 
   describe "DELETE destroy" do
     it "destroys the requested wardrobe_item" do
+      wardrobe_item
+
       expect {
         delete :destroy, {:id => wardrobe_item}
       }.to change(WardrobeItem, :count).by(-1)
     end
 
-    it "redirects to the wardrobe_item list"
+    it "redirects to the wardrobe_item list" do 
+      wardrobe_item = WardrobeItem.create valid_attributes
+
+      delete :destroy, {:id => wardrobe_item}
+      expect(response).to redirect_to(wardrobe_items_url)
+    end
   end
 end
 

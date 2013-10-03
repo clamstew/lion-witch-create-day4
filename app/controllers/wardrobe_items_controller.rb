@@ -39,9 +39,15 @@ class WardrobeItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @wardrobe_item = WardrobeItem.find(params[:id])
+    @wardrobe_item.destroy
+    redirect_to wardrobe_items_url
+  end
+
   private
   
-  def wardrobe_item_params
-    params.require(:wardrobe_item).permit(:garment, :label, :season, :color)
-  end
+    def wardrobe_item_params
+      params.require(:wardrobe_item).permit(:garment, :label, :season, :color)
+    end
 end
