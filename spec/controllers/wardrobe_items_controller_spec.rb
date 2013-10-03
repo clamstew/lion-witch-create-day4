@@ -95,6 +95,16 @@ describe WardrobeItemsController do
         put :update, {:id => wardrobe_item, :wardrobe_item => { "garment" => "invalid value"}}
         expect(assigns(:wardrobe_item)).to eq(wardrobe_item)
       end
+
+      it "re-renders the 'edit' template" do
+        wardrobe_item = WardrobeItem.create valid_attributes
+
+        # Trigger the behavior that occurs when invalid params are submitted
+        allow_any_instance_of(WardrobeItem).to receive(:save).and_return(false)
+
+        put :update, {:id => wardrobe_item, :wardrobe_item => { "garment" => "invalid value"}}
+        expect(response).to render_template("edit")
+      end
     end
   end
 
